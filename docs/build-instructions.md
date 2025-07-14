@@ -14,9 +14,9 @@ npm install pkg
 
 This command uses `pkg` to build the application.
 
--   `--targets node22-win-x64`: Specifies that the target is a 64-bit Windows executable using the Node.js 18 runtime.
+-   `--targets node18-win-x64`: Specifies that the target is a 64-bit Windows executable using the Node.js 18 runtime.
 -   `--output log-tailor.exe`: Sets the name of the output file.
 
 ```bash
-npx pkg . --targets node22-win-x64 --output log-tailor.exe
+npx pkg . --targets node18-win-x64 --output log-tailor.exe
 ```

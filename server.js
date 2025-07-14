@@ -2,7 +2,21 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const logFilePath = path.join(__dirname, 'app.log');
+let logFilePath;
+
+// 1. Check for environment variable
+if (process.env.LOG_FILE_PATH) {
+  logFilePath = process.env.LOG_FILE_PATH;
+} else {
+  // 2. Check for command-line argument
+  const logFileArgIndex = process.argv.indexOf('--log-file');
+  if (logFileArgIndex > -1 && process.argv[logFileArgIndex + 1]) {
+    logFilePath = process.argv[logFileArgIndex + 1];
+  } else {
+    // 3. Fallback to default
+    logFilePath = path.join(__dirname, 'app.log');
+  }
+}
 
 // Ensure log file exists
 if (!fs.existsSync(logFilePath)) {
