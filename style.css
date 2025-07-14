@@ -1,0 +1,14 @@
+body {
+    font-family: monospace;
+    background-color: #e4e4e4;
+    color: #1e1e1e;
+}
+
+#log-container {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #333;
+    padding: 10px;
+    height: 80vh;
+    overflow-y: scroll;
+}
