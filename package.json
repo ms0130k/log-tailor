@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple server to tail a log file and stream updates.",
   "main": "server.js",
+  "bin": "server.js",
   "scripts": {
     "start": "node server.js"
   },
