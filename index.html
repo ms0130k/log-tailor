@@ -4,26 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Tail</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Real-time Log Viewer</h1>
-    <div id="log-container"></div>
+<h1>Log Viewer</h1>
+<div id="log-container"></div>
 
-    <script>
-        const logContainer = document.getElementById('log-container');
-        const eventSource = new EventSource('/logs');
+<script>
+    const logContainer = document.getElementById('log-container');
+    const eventSource = new EventSource('./logs');
 
-        eventSource.onmessage = function(event) {
-            logContainer.textContent += event.data + '\n';
-            logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll
-        };
+    eventSource.onmessage = function (event) {
+        addLogLine(event.data);
+        logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll
+    };
+    eventSource.addEventListener('streamError', e => {
+        const {message} = JSON.parse(e.data);
+        addLogLine(message, 'error');
+        console.log('log stream error:', message);
+        eventSource.close();
+    });
 
-        eventSource.onerror = function(err) {
-            console.error("EventSource failed:", err);
-            logContainer.textContent += 'Connection lost. Retrying...\n';
-            eventSource.close();
-        };
-    </script>
+    eventSource.onerror = function (err) {
+        console.error('EventSource failed:', err);
+        addLogLine('Connection lost. Refresh plz...', 'error');
+        eventSource.close();
+    };
+
+    function addLogLine(text, type = 'info') {
+        const p = document.createElement('p');
+        p.textContent = text;
+        if (type === 'error') {
+            p.classList.add('error');
+        }
+        logContainer.append(p);
+    }
+</script>
 </body>
 </html>

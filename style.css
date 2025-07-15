@@ -4,6 +4,10 @@ body {
     color: #1e1e1e;
 }
 
+p {
+    margin: 0 0 3px 0;
+}
+
 #log-container {
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -11,4 +15,8 @@ body {
     padding: 10px;
     height: 80vh;
     overflow-y: scroll;
+}
+
+.error {
+    color: red;
 }

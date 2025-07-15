@@ -12,5 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "scripts": [
+      "server.js"
+    ],
+    "assets": [
+      "index.html",
+      "style.css"
+    ]
   }
 }
