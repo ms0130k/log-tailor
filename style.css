@@ -4,6 +4,17 @@ body {
     color: #1e1e1e;
 }
 
+header {
+    display: flex;
+    height: 3vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
 p {
     margin: 0 0 3px 0;
 }
@@ -13,7 +24,7 @@ p {
     word-wrap: break-word;
     border: 1px solid #333;
     padding: 10px;
-    height: 80vh;
+    height: 92vh;
     overflow-y: scroll;
 }
 

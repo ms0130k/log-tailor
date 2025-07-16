@@ -13,6 +13,8 @@ const server = http.createServer((req, res) => {
     serveStaticFile(res, 'style.css', 'text/css');
   } else if (req.url === '/logs') {
     streamLog(res, req);
+  } else if (req.url === '/down') {
+    downloadFile(res, logFilePath);
   } else if (req.url === '/favicon.ico') {
     res.writeHead(204);
     res.end();
@@ -98,9 +100,33 @@ function streamLog(res, req) {
     })
   }, 1000);
 
+  const heartbeatInterval = setInterval(() => {
+    res.write(':\n\n');
+  }, 15000);
+
   req.on('close', () => {
     clearInterval(interval);
+    clearInterval(heartbeatInterval);
     res.end();
     console.log('Client disconnected, stopped polling file.');
+  });
+}
+
+function downloadFile(res, filePath, downloadName = path.basename(filePath)) {
+  fs.stat(filePath, (err, stats) => {
+    if (err || !stats.isFile()) {
+      res.writeHead(404);
+      res.end('File not found');
+      return;
+    }
+
+    res.writeHead(200, {
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': `attachment; filename="${downloadName}"`,
+      'Content-Length': stats.size,
+    });
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
   });
 }
