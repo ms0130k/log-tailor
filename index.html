@@ -8,40 +8,20 @@
 </head>
 <body>
 <header>
-    <h1>Log Viewer</h1>
-    <a href="./down" download="web-app.log">전체 로그 다운로드</a>
+    <div>
+        <h1>Log Viewer - Web</h1>
+    </div>
+    <div>
+        <a href="./batch" >To Batch</a>
+        <a href="./down" download="web-app.log">전체 로그 다운로드</a>
+        <button type="button" id="stop">중지</button>
+        <button type="button" id="copy">복사(Ctrl + D)</button>
+    </div>
 </header>
 <div id="log-container"></div>
-
 <script>
-    const logContainer = document.getElementById('log-container');
-    const eventSource = new EventSource('./logs');
-
-    eventSource.onmessage = function (event) {
-        addLogLine(event.data);
-        logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll
-    };
-    eventSource.addEventListener('streamError', e => {
-        const {message} = JSON.parse(e.data);
-        addLogLine(message, 'error');
-        console.log('log stream error:', message);
-        eventSource.close();
-    });
-
-    eventSource.onerror = function (err) {
-        console.error('EventSource failed:', err);
-        addLogLine('Connection lost. Refresh plz...', 'error');
-        eventSource.close();
-    };
-
-    function addLogLine(text, type = 'info') {
-        const p = document.createElement('p');
-        p.textContent = text;
-        if (type === 'error') {
-            p.classList.add('error');
-        }
-        logContainer.append(p);
-    }
+    const TYPE = 'WEB';
 </script>
+<script src="./script.js"></script>
 </body>
 </html>

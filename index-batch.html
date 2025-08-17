@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Tail</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+    <div>
+        <h1>Log Viewer - Batch</h1>
+    </div>
+    <div>
+        <a href="../" >To Web</a>
+        <a href="./down" download="batch-app.log">전체 로그 다운로드</a>
+        <button type="button" id="stop">중지</button>
+        <button type="button" id="copy">복사(Ctrl + D)</button>
+    </div>
+</header>
+<div id="log-container"></div>
+
+<script>
+    const TYPE = 'BATCH';
+</script>
+<script src="./script.js"></script>
+</body>
+</html>
