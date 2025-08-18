@@ -19,6 +19,7 @@
     ],
     "assets": [
       "index.html",
+      "index-batch.html",
       "script.js",
       "style.css"
     ]
